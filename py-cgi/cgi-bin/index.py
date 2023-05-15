@@ -1,15 +1,9 @@
 #!/usr/bin/env python3
 import os
-import cgi
 
 # 세션 ID를 가져옵니다.
 cookie = os.environ.get('HTTP_COOKIE')
 session_id = ''
-
-session_server = os.environ.get('PY_SESSION')
-sessionMap = {}
-
-# cookieMap = {}
 
 try:
     for item in cookie.split(';'):
@@ -17,15 +11,16 @@ try:
         if key == 'session_id':
             session_id = value
 
-    for item in session_server.split(';'):
-        key, value = item.strip().split('=')
-        print(session_id)
-        print(key)
-        sessionMap[key] = value
-
-    if session_id in sessionMap:
-        user_id, user_name = session_id.strip().split('-')    
-
+    if session_id == 'webserv-Jacob' or session_id == 'irc-David':
+        if session_id == 'webserv-Jacob':
+            user_id = 'webserv'
+            user_name = 'Jacob'
+            vip_level = 1
+        elif session_id == 'irc-David':
+            user_id = 'irc'
+            user_name = 'David'
+            vip_level = 2
+        
         printHttp = f'''
 <!DOCTYPE html>
 <html lang="ko">
@@ -66,7 +61,7 @@ try:
 </head>
 <body>
 <div class="base">
-    <h2>Hi, {user_id}({user_name}) : VIP LEVEL({sessionMap[session_id]})</h2>
+    <h2>Hi, {user_id}({user_name}) : VIP LEVEL({vip_level})</h2>
     <button type="button" class="btn" onclick="location.href='logout.php'">
     LOGOUT
     </button>
@@ -76,6 +71,6 @@ try:
                 '''
         print(printHttp)
     else:
-        print("<script>location.replace('login.html');</script>")
+        print("<script>location.replace('../login.html');</script>")
 except:
-    print("<script>location.replace('login.html');</script>")
+    print("<script>location.replace('../login.html');</script>")

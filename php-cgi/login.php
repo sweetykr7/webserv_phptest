@@ -1,4 +1,4 @@
-
+#!/usr/bin/php-cgi
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -64,7 +64,7 @@
 </head>
 <body>
   <form method="post" action="check_login.php" class="loginForm">
-    <h2>Login</h2>
+    <h2>Login(php)</h2>
     <div class="idForm">
       <input type="text" name="id" class="id" placeholder="Username">
     </div>
