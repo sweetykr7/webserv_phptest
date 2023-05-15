@@ -2,7 +2,7 @@
 <?php
 session_start();
 session_destroy();
-// setcookie("session_id",'');
+setcookie("session_id",'');
 ?>
 <script>    
     alert("You've been logged out");    

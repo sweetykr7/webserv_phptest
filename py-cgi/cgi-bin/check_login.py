@@ -35,6 +35,6 @@ elif username == "irc" and password == "yes":
 else:    
     body_upper()
     print("<script>alert('Invalid username or password')</script>")
-    print("<script>location.replace('login.py');</script>")
+    print("<script>location.replace('../login.html');</script>")
     print("</body>")
 

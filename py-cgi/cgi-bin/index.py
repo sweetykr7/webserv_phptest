@@ -62,7 +62,7 @@ try:
 <body>
 <div class="base">
     <h2>Hi, {user_id}({user_name}) : VIP LEVEL({vip_level})</h2>
-    <button type="button" class="btn" onclick="location.href='logout.php'">
+    <button type="button" class="btn" onclick="location.href='logout.py'">
     LOGOUT
     </button>
 </div>
