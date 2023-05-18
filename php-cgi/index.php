@@ -3,7 +3,9 @@
 session_start();
 
 if(!isset($_SESSION['username'])) {
-    echo "<script>location.replace('login.php');</script>";            
+  echo "<script>location.replace('login.php');</script>";            
+  $username = 'not_available';
+  $name = 'not_available';
 }
 else {
     $username = $_SESSION['username'];

@@ -92,20 +92,43 @@
 
 	</style>
 	<script>
-		function deleteFile(filename) {
-			fetch(filename, { method: 'DELETE' })
-				.then(response => {
-					if (response.ok) {
-						alert('File deleted successfully');
-						location.reload();
-					} else {
-						alert('Failed to delete file');
-					}
-				})
-				.catch(error => {
-					alert('Error deleting file: ' + error.message);
-				});
-		}
+		// function deleteFile(filename) {
+		// 	alert(filename);
+		// 	fetch(filename, { method: 'DELETE' })
+		// 		.then(response => {
+		// 			if (response.ok) {
+		// 				alert('File deleted successfully');
+		// 				location.reload();
+		// 			} else {
+		// 				alert('Failed to delete file');
+		// 			}
+		// 		})
+		// 		.catch(error => {
+		// 			alert('Error deleting file: ' + error.message);
+		// 		});
+		// }
+
+		// function deleteFile(filename){
+		// 	const url = './delete/delete.php'; 
+
+		// 	const params = new URLSearchParams();
+		// 	params.append('filename', filename.textContent);
+
+		// 	const form = document.createElement('form');
+		// 	form.method = 'POST';
+		// 	form.action = url;
+		// 	form.style.display = 'none';
+
+		// 	const input = document.createElement('input');
+		// 	input.type = 'hidden';
+		// 	input.name = 'filename';
+		// 	input.value = filename.textContent;
+
+		// 	form.appendChild(input);
+		// 	document.body.appendChild(form);
+
+		// 	form.submit();
+		// }
 
 		window.onload = function() {
 			const directory = './uploads/';
@@ -119,6 +142,8 @@
 					const filenames = doc.querySelectorAll('a');
 
 					for (const filename of filenames) {
+						if (filename.textContent == '..')
+							continue;
 						const row = table.insertRow();
 						const cell1 = row.insertCell();
 						const cell2 = row.insertCell();
@@ -126,9 +151,32 @@
 
 						cell1.innerHTML = filename.textContent;
 						deleteButton.innerHTML = 'Delete';
+
+						
+
 						deleteButton.addEventListener('click', () => {
-							deleteFile(directory + filename.textContent);
-						});
+								const params = new URLSearchParams();
+								params.append('filename', directory + filename.textContent);
+
+								fetch('./delete/delete.php', {
+									method: 'DELETE',
+									headers: {
+										'Content-Type': 'application/json'
+									},
+									body: params.toString()
+								})
+								.then(response => {
+									if (response.ok) {
+										alert('File deleted successfully');
+										location.reload();
+									} else {
+										alert('Failed to delete file');
+									}
+								})
+								.catch(error => {
+									alert('Error deleting file: ' + error.message);
+								});
+							});
 
 						cell2.appendChild(deleteButton);
 					}
