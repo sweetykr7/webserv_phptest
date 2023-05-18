@@ -155,15 +155,15 @@
 						
 
 						deleteButton.addEventListener('click', () => {
-								const params = new URLSearchParams();
-								params.append('filename', directory + filename.textContent);
-
+								// const params = new URLSearchParams();
+								// params.append('filename', directory + filename.textContent);
+								const data = { filename: directory + filename.textContent };
 								fetch('./delete/delete.php', {
 									method: 'DELETE',
 									headers: {
 										'Content-Type': 'application/json'
 									},
-									body: params.toString()
+									body: JSON.stringify(data)
 								})
 								.then(response => {
 									if (response.ok) {
@@ -190,7 +190,7 @@
 				event.preventDefault();
 				const formData = new FormData(form);
 
-				fetch('upload.php', {
+				fetch('./upload/upload.php', {
 					method: 'POST',
 					body: formData
 				})
